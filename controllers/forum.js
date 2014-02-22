@@ -1,5 +1,5 @@
 exports.index = function(req, res) {
-  var user = {type: "staff"};
+  var user = req.user;
   var questions  =  [
     {
     "author": "",
