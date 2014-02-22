@@ -16,6 +16,8 @@ var connectAssets = require('connect-assets');
  */
 
 var homeController = require('./controllers/home');
+var forumController = require('./controllers/forum');
+var faqController = require('./controllers/faq'); 
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
@@ -57,7 +59,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(connectAssets({
-  paths: ['public/css', 'public/js'],
+  paths: ['public/css', 'public/js', 'public/img'],
   helperContext: app.locals
 }));
 app.use(express.compress());
@@ -98,6 +100,8 @@ app.use(express.errorHandler());
  */
 
 app.get('/', homeController.index);
+app.get('/faq', faqController.index);
+app.get('/forum', forumController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
