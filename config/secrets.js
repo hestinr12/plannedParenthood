@@ -65,8 +65,8 @@ module.exports = {
   },
 
   twilio: {
-    sid: 'Your Account SID',
-    token: 'Your Auth Token'
+    sid: 'AC9863e5325a4c193320f5eed2b3be7140',
+    token: 'fa8f50b619a2799a61316c1abc256e84'
   },
 
   tumblr: {
