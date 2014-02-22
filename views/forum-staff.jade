@@ -1,0 +1,44 @@
+extends layout
+
+block content 
+  h1 #{title}
+  block postNewQ
+    .row 
+      .col-xs-8
+        .panel
+          .panel-title
+            h3 Post New Question
+          .panel-body
+            form(method="POST")
+              textarea(name="text",maxlength="160")
+              button Ask
+  each q in questions
+    .row
+      .col-xs-8
+        .panel
+          .panel-body
+            h3= q.text
+            block q_approval 
+              span 
+                form(method="GET", action="/question") 
+                  button.btn-success(formaction="/question/#{q._id}/approve") Approve
+                  button.btn-danger(formaction="/question/#{q._id}/disapprove") Reject
+
+            ul
+              block postNewA
+                li.newAnswer
+                  h5 Answers
+                  form(method="POST", action="/question/#{q._id}/answers")
+                    textarea(name="text",maxlength="160") 
+                    button Answer
+              each a in q.answers
+                li.answer 
+                  p= a.text
+                  block a_approval 
+                    span 
+                      form(method="GET")
+                        button.btn-success(formaction="/question/#{q._id}/answers/#{a._id}/approve") Approve
+                        button.btn-danger(formaction="/question/#{q._id}/answers/#{a._id}/disapprove") Reject
+
+
+
