@@ -36,6 +36,10 @@ block content
       .col-sm-4
         img(src="#{user.gravatar()}", class='profile', width='100', height='100')
     .form-group
+      label.col-sm-2.control-label Type
+      .col-sm-4
+        p #{user.type}
+    .form-group
       .col-sm-offset-2.col-sm-4
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-magnet

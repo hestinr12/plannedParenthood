@@ -12,6 +12,8 @@ var userSchema = new mongoose.Schema({
   github: { type: String, unique: true, sparse: true },
   tokens: Array,
 
+  type: { type: String, enum: ['student', 'staff'] },
+
   profile: {
     name: { type: String, default: '' },
     gender: { type: String, default: '' },
