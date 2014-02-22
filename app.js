@@ -23,6 +23,7 @@ var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var forgotController = require('./controllers/forgot');
 var resetController = require('./controllers/reset');
+var questionController = require('./controllers/question_controller');
 
 /**
  * API keys + Passport configuration.
@@ -137,16 +138,16 @@ app.get('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, a
 app.post('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.postVenmo);
 
 
-app.get('/questions', faqController.getQuestions);
-app.post('/question', faqController.postQuestion);
-app.get('/question/:qid', faqController.getQuestionById);
-app.get('/question/:qid/approve', faqController.approveQuestion);
-app.get('/question/:qid/disapprove', faqController.disapproveQuestion);
+app.get('/questions', questionController.getQuestions);
+app.post('/question', questionController.postQuestion);
+app.get('/question/:qid', questionController.getQuestionById);
+app.get('/question/:qid/approve', questionController.approveQuestion);
+app.get('/question/:qid/disapprove', questionController.disapproveQuestion);
 
-app.post('question/:qid/answers', faqController.getAnswersForQuestion);
-app.post('question/:qid/answers/:aid', faqController.getAnswersForQuestionById);
-app.post('question/:qid/answer/:aid/approve', faqController.approveAnswer);
-app.post('question/:qid/answer/:aid/disapprove', faqController.disapproveAnswer);
+app.post('question/:qid/answers', questionController.getAnswersForQuestion);
+app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionById);
+app.post('question/:qid/answer/:aid/approve', questionController.approveAnswer);
+app.post('question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
 
 
 /**
