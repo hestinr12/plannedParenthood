@@ -1,7 +1,8 @@
 extends layout
 
 block content 
-  h1 #{title}
+  .page-header
+    h1 #{title}
   block postNewQ
     .row 
       .col-xs-8
@@ -14,32 +15,43 @@ block content
                 .controls
                   .input-append
                     input.input-xlarge(type="text",name="text",maxlength="160")
-              button.btn Ask
+                    button.btn Ask
   each q in questions
-    .row
-      .col-xs-8
-        .panel
-          .panel-body
-            h3= q.text
-            block q_approval 
-              span 
-                a.btn.btn-success(type="submit", formaction="/question/#{q._id}/approve") Approve
-                a.btn.btn-danger(type="submit", formaction="/question/#{q._id}/disapprove") Reject
-
-            ul
+    .panel
+      .panel-body
+        .row
+          block q_approval 
+           .col-xs-2
+              a.btn.btn-success(type="submit", formaction="/question/#{q._id}/approve") Approve
+              a.btn.btn-danger(type="submit", formaction="/question/#{q._id}/disapprove") Reject
+          .col-xs-6
+            p.question= q.text
+        
+        .row
+          .col-xs-12
+            h2 Answers
+            .row 
               block postNewA
-                li.newAnswer
-                  h5 Answers
-                  form(method="POST", action="/question/#{q._id}/answers")
-                    textarea(name="text",maxlength="160") 
-                    button.btn Answer
+                .col-xs-2
+                  h5 New Answer:
+                .col-xs-6
+                  .newAnswer
+                    form(method="POST", action="/question/#{q._id}/answers")
+                      .control-group
+                        .controls
+                          .input-append
+                            input(type="text",name="text",maxlength="160") 
+                            button.btn Answer
+
+            if q.answers.length
               each a in q.answers
-                li.answer 
-                  p= a.text
+                .row  
                   block a_approval 
-                    span 
-                      a.btn.btn-success(href="/question/#{q._id}/answers/#{a._id}/approve") Approve
-                      a.btn.btn-danger(href="/question/#{q._id}/answers/#{a._id}/disapprove") Reject
-
-
-
+                    .col-xs-2
+                      span 
+                        a.btn.btn-success(href="/question/#{q._id}/answers/#{a._id}/approve") Approve
+                        a.btn.btn-danger(href="/question/#{q._id}/answers/#{a._id}/disapprove") Reject
+                  .col-xs-6
+                      p.answer= a.text
+            else
+              h4 No answers posted yet!
