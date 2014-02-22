@@ -137,7 +137,6 @@ app.get('/api/twitter', passportConf.isAuthenticated, passportConf.isAuthorized,
 app.get('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getVenmo);
 app.post('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.postVenmo);
 
-
 app.get('/questions', questionController.getQuestions);
 app.post('/question', questionController.postQuestion);
 app.get('/question/:qid', questionController.getQuestionById);
