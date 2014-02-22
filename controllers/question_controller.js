@@ -2,7 +2,7 @@ var Question = require('../models/Question');
 var Answer = require('../models/Answer');
 
 exports.getQuestions = function(req, res, next) {
-	var Question.find({}, function(err, questions) {
+	Question.find({}, function(err, questions) {
 		res.send(questions);
 	});
 }
