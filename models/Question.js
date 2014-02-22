@@ -15,7 +15,12 @@ var questionSchema = new mongoose.Schema({
 		type : Date,
 		required : true
 	}
+	approved : {
+		type : Boolean,
+		required : true
+	}
 	answers : [AnswerSchema]
+
 	tags : [String]	
 });
 
