@@ -1,5 +1,5 @@
 module.exports = {
-  db: 'localhost',
+  db: '10.93.126.171',
 
   localAuth: true,
   sessionSecret: "Your Session Secret goes here",
