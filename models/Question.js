@@ -17,7 +17,7 @@ var questionSchema = new mongoose.Schema({
 	},
 	time_posted : {
 		type : Date,
-		required : true
+		default : Date.now
 	},
 	approved : {
 		type : Boolean,

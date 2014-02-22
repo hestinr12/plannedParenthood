@@ -16,6 +16,6 @@ var AnswerSchema = new mongoose.Schema({
 	},
 	time_posted : {
 		type : Date,
-		required : true
+    default : Date.now
 	}
 })
