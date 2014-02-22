@@ -38,7 +38,9 @@ block content
     .form-group
       label.col-sm-2.control-label Type
       .col-sm-4
-        p #{user.type}
+        select.form-control(name="type")
+          each val in typeEnumValues
+            option(selected=(val==user.type)?"selected":null) #{val}
     .form-group
       .col-sm-offset-2.col-sm-4
         button.btn.btn.btn-primary(type='submit')
