@@ -148,6 +148,7 @@ app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionB
 app.post('question/:qid/answer/:aid/approve', questionController.approveAnswer);
 app.post('question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
 
+app.post('/rxsms', twilioController.loginAndProcess);
 
 /**
  * OAuth routes for sign-in.
