@@ -1,13 +1,40 @@
+var mongoose = require('mongoose');
+
 var AnswerSchema = new mongoose.Schema({
-	text : 			String
-	author : 		Number
-	approved : 		Boolean
-	time_posted : 	Date
+	text : {
+		type : String,
+		required : true
+	}
+	author : {
+		type: Schema.Types.ObjectId,
+		required : true,
+		ref : 'User'
+	}
+	approved : {
+		type : Boolean,
+		required : true
+	}
+	time_posted : {
+		type : Date,
+		required : true
+	}
 })
 
 var QuestionSchema = new mongoose.Schema({
-	text : 		String
-	author : 	Number
-	answers : 	[AnswerSchema]
-	tags : 		[String]	
+	text : { 
+		type : String,
+		required : true,
+		validate : validate('len', 0, 160)
+	} 
+	author : {
+		type: Schema.Types.ObjectId,
+		required = true,
+		ref : 'User'
+	}
+	time_posted : {
+		type : Date,
+		required : true
+	}
+	answers : [AnswerSchema]
+	tags : [String]	
 })

@@ -116,7 +116,8 @@ exports.postSignup = function(req, res, next) {
 
 exports.getAccount = function(req, res) {
   res.render('account/profile', {
-    title: 'Account Management'
+    title: 'Account Management',
+    typeEnumValues: User.schema.path('type').enumValues
   });
 };
 
@@ -129,6 +130,7 @@ exports.postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
     user.email = req.body.email || '';
+    user.type = req.body.type || 'student';
     user.profile.name = req.body.name || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
