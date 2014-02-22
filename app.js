@@ -145,8 +145,8 @@ app.get('/question/:qid/disapprove', faqController.disapproveQuestion);
 
 app.post('question/:qid/answers', faqController.getAnswersForQuestion);
 app.post('question/:qid/answers/:aid', faqController.getAnswersForQuestionById);
-app.post('question/:qid/answer/:aid/approve', faqController.approveAnswers);
-app.post('question/:qid/answer/:aid/disapprove', faqController.disapproveAnswers);
+app.post('question/:qid/answer/:aid/approve', faqController.approveAnswer);
+app.post('question/:qid/answer/:aid/disapprove', faqController.disapproveAnswer);
 
 
 /**
