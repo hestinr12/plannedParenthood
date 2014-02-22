@@ -137,6 +137,17 @@ app.get('/api/twitter', passportConf.isAuthenticated, passportConf.isAuthorized,
 app.get('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getVenmo);
 app.post('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.postVenmo);
 
+app.get('/questions', faqController.getQuestions);
+app.post('/question', faqController.postQuestion);
+app.get('/question/:id', faqController.getQuestion);
+app.get('/question/:id/approve', faqController.approveQuestion);
+app.get('/question/:id/disapprove', faqController.disapproveQuestion);
+
+app.post('question/:id/answers', faqController.getAnswers);
+app.post('question/:id/answer/:id/approve', faqController.approveAnswers);
+app.post('question/:id/answer/:id/disapprove', faqController.disapproveAnswers);
+
+
 /**
  * OAuth routes for sign-in.
  */
