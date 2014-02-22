@@ -2,3 +2,18 @@ extends layout
 
 block content 
   h1 #{title}
+  each q in questions
+    .row
+      .col-xs-8
+        .panel
+          .panel-body
+            h3= q.text
+            block approval 
+            .row
+              .col-xs-8
+                ul
+                  each a in q.answers
+                    li 
+                      p= a.text
+                      block approval 
+

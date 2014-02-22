@@ -16,8 +16,8 @@
         li(class=title=='Frequently Asked Questions'?'active':undefined)
           a(href='/faq') FAQs
         if user
-          if user.type=="faculty"
-            li(class=title=="Approve Questions"?'active':undefined)
+          if user.type=="staff"
+            li(class=title=="Approve Questions and Answers"?'active':undefined)
               a(href='/faculty') Approve Q&amp;A
       ul.nav.navbar-nav.navbar-right
         if !user
