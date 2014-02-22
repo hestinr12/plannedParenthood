@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
+var twilio = require('twilio');
 
 /**
  * Load controllers.
@@ -24,6 +25,7 @@ var contactController = require('./controllers/contact');
 var forgotController = require('./controllers/forgot');
 var resetController = require('./controllers/reset');
 var questionController = require('./controllers/question_controller');
+var twilioController = require('./controllers/twilioController');
 
 /**
  * API keys + Passport configuration.
@@ -77,12 +79,12 @@ app.use(express.session({
     auto_reconnect: true
   })
 }));
-app.use(express.csrf());
+//app.use(express.csrf());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next) {
   res.locals.user = req.user;
-  res.locals.token = req.csrfToken();
+//  res.locals.token = req.csrfToken();
   res.locals.secrets = secrets;
   next();
 });
@@ -148,7 +150,8 @@ app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionB
 app.post('question/:qid/answer/:aid/approve', questionController.approveAnswer);
 app.post('question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
 
-app.post('/rxsms', twilioController.loginAndProcess);
+process.env.TWILIO_AUTH_TOKEN = secrets.twilio.token;
+app.post('/rxsms', twilio.webhook(), twilioController.loginAndProcess);
 
 /**
  * OAuth routes for sign-in.
