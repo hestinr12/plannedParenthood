@@ -21,7 +21,7 @@ var questionSchema = new mongoose.Schema({
 	},
 	approved : {
 		type : Boolean,
-		required : true
+		default : false
 	},
 	answers : [AnswerSchema],
 

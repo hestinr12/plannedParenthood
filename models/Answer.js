@@ -12,7 +12,7 @@ var AnswerSchema = new mongoose.Schema({
 	},
 	approved : {
 		type : Boolean,
-		required : true
+		default : false
 	},
 	time_posted : {
 		type : Date,
