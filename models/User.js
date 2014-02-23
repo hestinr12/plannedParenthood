@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required : true },
   password: String,
 
+  phone: { type: Number, default: 5555555555 },
   facebook: { type: String, unique: true, sparse: true },
   twitter: { type: String, unique: true, sparse: true },
   google: { type: String, unique: true, sparse: true },
@@ -16,7 +17,6 @@ var userSchema = new mongoose.Schema({
 
   profile: {
     name: { type: String, default: '' },
-    phone: { type: String, default: '' },
     gender: { type: String, default: '' },
     location: { type: String, default: '' },
     website: { type: String, default: '' },

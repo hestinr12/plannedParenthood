@@ -115,6 +115,7 @@ exports.postSignup = function(req, res, next) {
  */
 
 exports.getAccount = function(req, res) {
+  console.log(req.user);
   res.render('account/profile', {
     title: 'Account Management',
     typeEnumValues: User.schema.path('type').enumValues
