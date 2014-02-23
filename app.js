@@ -11,7 +11,6 @@ var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
 var twilio = require('twilio');
-
 /**
  * Load controllers.
  */
@@ -38,7 +37,7 @@ var passportConf = require('./config/passport');
  * Create Express server.
  */
 
-var app = express();
+app = express();
 
 /**
  * Mongoose configuration.
@@ -187,7 +186,9 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
 /**
  * Start Express server.
  */
+var server = require('http').createServer(app);
+app.io = require('socket.io').listen(server);
 
-app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
   console.log("✔ Express server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });

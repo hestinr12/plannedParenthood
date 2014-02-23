@@ -1,5 +1,6 @@
 var twilio = require('twilio');
 var Question = require('../models/Question');
+
 // { ToCountry: 'US',
 //   ToState: 'PA',
 //   SmsMessageSid: 'SMebf139b3a4be750585fb558337cc12f8',
@@ -28,6 +29,9 @@ var Question = require('../models/Question');
     question.save( function(err, question) {
       if (err)
         console.log(err, question);
-      socket.broadcast.emit('new question');
+      app.io.sockets.on('connection', function(socket) {
+        socket.broadcast.emit('new question');
+        console.log("should refresh");
+      });
     });
-  };
+  }

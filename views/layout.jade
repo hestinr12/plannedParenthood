@@ -9,6 +9,8 @@ html
     title #{title} - Starter Template for Bootstrap
     != css('styles')
     != js('application')
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js")
+
   body
     #wrap
       include partials/navigation

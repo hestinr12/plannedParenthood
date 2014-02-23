@@ -58,5 +58,5 @@ block content
 
 
 script.
-  var socket = io.connect();
-  socket.on('new question, function(data){ location.reload();});
+  var socket = io.connect("http://192.237.240.44/");
+  socket.on('new question', function(data){ location.reload();});
