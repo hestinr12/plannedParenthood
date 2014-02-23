@@ -56,7 +56,3 @@ block content
             else
               h4 No answers posted yet!
 
-
-script.
-  var socket = io.connect("http://192.237.240.44/");
-  socket.on('new question', function(data){ location.reload();});

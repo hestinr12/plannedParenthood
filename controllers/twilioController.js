@@ -19,19 +19,15 @@ var Question = require('../models/Question');
 //   From: '+19493071775',
 //   ApiVersion: '2010-04-01' }
 
-  exports.loginAndProcess = function(req, res, next){
-    var twiml = new twilio.TwimlResponse();
-    twiml.message("Thanks for submitting your question. We'll get back to you asap!");
-    res.send(twiml);
-      
-    // Post new question
-    var question = new Question({phone: req.body.From, text: req.body.Body});
-    question.save( function(err, question) {
-      if (err)
-        console.log(err, question);
-      app.io.sockets.on('connection', function(socket) {
-        socket.broadcast.emit('new question');
-        console.log("should refresh");
-      });
-    });
-  }
+exports.loginAndProcess = function(req, res, next){
+  var twiml = new twilio.TwimlResponse();
+  twiml.message("Thanks for submitting your question. We'll get back to you asap!");
+  res.send(twiml);
+    
+  // Post new question
+  var question = new Question({phone: req.body.From, text: req.body.Body});
+  question.save( function(err, question) {
+    if (err)
+      console.log(err, question);
+  });
+}
