@@ -1,6 +1,7 @@
 var twilio = require('twilio');
 var client = require('twilio')('AC9863e5325a4c193320f5eed2b3be7140','fa8f50b619a2799a61316c1abc256e84');
 var Question = require('../models/Question');
+var User = require('../models/User');
 
 // { ToCountry: 'US',
 //   ToState: 'PA',
@@ -28,14 +29,16 @@ exports.loginAndProcess = function(req, res, next){
   var text_body = req.body.Body;
 
   
-  if(text_body.indexOf("suicide") > -1) {
+  if(text_body.toLowerCase().indexOf("suicide") > -1) {
+    console.log("danger");
     User.find({type : 'staff'}, function(err, staff){
       staff.map(function(curr, index, thisArg){
+        console.log(curr);
         client.sendMessage({
-          to: '+' + curr.profile.phoneNumber,
+          to: '+1' + curr.phone,
           from: '+7245364777',
           body: 'The following text was just recieved.\n' + text_body + '\n Please respond immediately.'
-        }, function(err, response){});
+        }, function(err, response){ if(err) console.log(err);});
       });
     });
   }
