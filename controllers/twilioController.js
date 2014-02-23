@@ -1,5 +1,7 @@
 var twilio = require('twilio');
+var client = require('twilio')('AC9863e5325a4c193320f5eed2b3be7140','fa8f50b619a2799a61316c1abc256e84');
 var Question = require('../models/Question');
+var User = require('../models/User');
 
 // { ToCountry: 'US',
 //   ToState: 'PA',
@@ -24,8 +26,27 @@ exports.loginAndProcess = function(req, res, next){
   twiml.message("Thanks for submitting your question. We'll get back to you asap!");
   res.send(twiml);
     
+  var text_body = req.body.Body;
+
+  
+  if(text_body.toLowerCase().indexOf("suicide") > -1) {
+    console.log("danger");
+    User.find({type : 'staff'}, function(err, staff){
+      staff.map(function(curr, index, thisArg){
+        console.log(curr);
+        client.sendMessage({
+          to: '+1' + curr.phone,
+          from: '+17245364777',
+          body: 'The following text was just recieved.\n\"' + text_body + '\"\n Please respond immediately.'
+        }, function(err, response){ if(err) console.log(err);});
+      });
+    });
+  }
+    
   // Post new question
   var question = new Question({phone: req.body.From, text: req.body.Body});
+  
+  
   question.save( function(err, question) {
     if (err)
       console.log(err, question);
