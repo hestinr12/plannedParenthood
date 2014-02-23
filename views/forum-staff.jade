@@ -47,8 +47,10 @@ block content
                     .row  
                       .col-xs-3
                         span 
-                          a.btn(href="/question/#{q._id}/answer/#{a._id}/upvote")
-                            i.fa.fa-thumbs-up
+                          block a_upvote
+                            span 
+                              a.btn(href="/question/#{q._id}/answer/#{a._id}/upvote")
+                                i.fa.fa-thumbs-up= a.upvotes
                           block a_approval 
                             a.btn.btn-success(href="/question/#{q._id}/answer/#{a._id}/finalize") 
                               | Finalize
