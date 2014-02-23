@@ -1,7 +1,5 @@
 var twilio = require('twilio');
 var Question = require('../models/Question');
-var secret = require("../config/secrets");
-var User = require("../models/User");
 
 // { ToCountry: 'US',
 //   ToState: 'PA',
@@ -22,23 +20,14 @@ var User = require("../models/User");
 //   ApiVersion: '2010-04-01' }
 
   exports.loginAndProcess = function(req, res, next){
-    console.log(req.body);
     var twiml = new twilio.TwimlResponse();
-    twiml.message("Thanks for participating, shitface!");
+    twiml.message("Thanks for submitting your question. We'll get back to you asap!");
     res.send(twiml);
-
-    // Upsert User
-      var user = new User({
-        profile: {
-          phoneNumber: req.body.From
-        }
-      });
-
-      user.update({$set: {"profile.phoneNumber": req.body.From}}, {upsert: true}, function(err) {
-        if (err) console.log(err);
-      });
       
-      // Post new question
-      var question = new Question({author: user._id, text: req.body.Body});
-      question.save();
+    // Post new question
+    var question = new Question({phone: req.body.From, text: req.body.Body});
+    question.save( function(err, question) {
+      if (err)
+        console.log(err, question);
+    });
   };

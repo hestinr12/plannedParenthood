@@ -19,3 +19,6 @@ var AnswerSchema = new mongoose.Schema({
     default : Date.now
 	}
 })
+
+module.exports = mongoose.model('Answer', AnswerSchema);
+

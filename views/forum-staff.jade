@@ -4,7 +4,7 @@ block content
   .page-header
     h1 #{title}
   block postNewQ
-    .row 
+    // .row 
       .col-xs-8
         .panel
           .panel-title
@@ -34,14 +34,12 @@ block content
               block postNewA
                 .col-xs-2
                   h5 New Answer:
-                .col-xs-6
+                .col-xs-10
                   .newAnswer
-                    form(method="POST", action="/question/#{q._id}/answers")
-                      .control-group
-                        .controls
-                          .input-append
-                            input(type="text",name="text",maxlength="160") 
-                            button.btn Answer
+                    form.form-inline(role="form", method="POST", action="/question/#{q._id}/answers")
+                      .form-group
+                        input.form-control(type="text",name="text",maxlength="160") 
+                      button.btn.btn-default(type="submit") Answer
 
             if q.answers.length
               each a in q.answers
@@ -49,8 +47,10 @@ block content
                   block a_approval 
                     .col-xs-2
                       span 
-                        a.btn.btn-success(href="/question/#{q._id}/answers/#{a._id}/approve") Approve
-                        a.btn.btn-danger(href="/question/#{q._id}/answers/#{a._id}/disapprove") Reject
+                        a.btn.btn-success(href="/question/#{q._id}/answers/#{a._id}/approve") 
+                          | Approve
+                        a.btn.btn-danger(href="/question/#{q._id}/answers/#{a._id}/disapprove") 
+                          | Reject
                   .col-xs-6
                       p.answer= a.text
             else

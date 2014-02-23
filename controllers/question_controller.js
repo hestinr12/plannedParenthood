@@ -32,11 +32,20 @@ exports.disapproveQuestion = function(req, res, next){
 
 exports.getAnswersForQuestion = function(req, res, next){
 	var qid = req.param.qid;
-	Question.findById(id, function(err, questions) {
-		Answer.find({}, function(err, answers){
-			res.send(answers);
-		});
+	Question.findById(qid, function(err, question) {
+		res.send(question.answers);
 	});
+}
+
+exports.postAnswerForQuestion = function(req, res) {
+  var qid = req.params.qid;
+  Question.findById(qid, function(err, question) {
+    var answer = new Answer({text: req.body.text, author: req.user._id});
+    question.answers.push(answer);
+    question.save(function(err, question) {
+      res.redirect("/forum");
+    });
+  });
 }
 
 exports.getAnswersForQuestionById = function(req, res, next){
