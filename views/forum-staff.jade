@@ -47,10 +47,10 @@ block content
                   block a_approval 
                     .col-xs-2
                       span 
-                        a.btn.btn-success(href="/question/#{q._id}/answers/#{a._id}/approve") 
-                          | Approve
                         a.btn.btn-danger(href="/question/#{q._id}/answers/#{a._id}/disapprove") 
                           | Reject
+                        a.btn.btn-success(href="/question/#{q._id}/answers/#{a._id}/finalize") 
+                          | finalize
                   .col-xs-6
                       p.answer= a.text
             else
