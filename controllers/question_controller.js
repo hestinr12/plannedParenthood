@@ -84,3 +84,22 @@ exports.postQuestion = function(req, res, next){
 	var question = new Question(req.body);
 	question.save(function(err, data){res.send(200)});
 }
+
+exports.insertTag = function(req, res)
+{
+	Question.findById(req.params.qid, function(err, question){
+		question.tags.addToSet(req.params.tag);
+		question.save(function(err){
+			res.send(question);
+		});
+	});
+}
+
+exports.removeTag = function(req, res){
+	Question.findById(req.params.qid, function(err, question){
+		question.tags.pull(req.params.tag);
+		question.save(function(err){
+			res.send(question);
+		});
+	});
+}
