@@ -24,6 +24,7 @@ var contactController = require('./controllers/contact');
 var forgotController = require('./controllers/forgot');
 var resetController = require('./controllers/reset');
 var questionController = require('./controllers/question_controller');
+var searchController = require('./controllers/search_controller');
 var twilioController = require('./controllers/twilioController');
 
 /**
