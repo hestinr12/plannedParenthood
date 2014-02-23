@@ -145,10 +145,11 @@ app.get('/question/:qid', questionController.getQuestionById);
 app.get('/question/:qid/approve', questionController.approveQuestion);
 app.get('/question/:qid/disapprove', questionController.disapproveQuestion);
 
-app.post('question/:qid/answers', questionController.getAnswersForQuestion);
-app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionById);
-app.post('question/:qid/answer/:aid/approve', questionController.approveAnswer);
-app.post('question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
+app.get('/question/:qid/answers', questionController.getAnswersForQuestion);
+app.post('/question/:qid/answers', passportConf.isAuthenticated, questionController.postAnswerForQuestion);
+//app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionById);
+app.get('/question/:qid/answer/:aid/approve', questionController.approveAnswer);
+app.get('/question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
 
 process.env.TWILIO_AUTH_TOKEN = secrets.twilio.token;
 app.post('/rxsms', twilio.webhook(), twilioController.loginAndProcess);

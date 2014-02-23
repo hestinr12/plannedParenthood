@@ -10,10 +10,9 @@ var questionSchema = new mongoose.Schema({
 		required : true,
 		validate : validate('len', 0, 160)
 	},
-	author : {
-		type: Schema.Types.ObjectId,
-		required: true,
-		ref : 'User'
+	phone : {
+		type: Number,
+		required: true
 	},
 	time_posted : {
 		type : Date,
@@ -23,7 +22,7 @@ var questionSchema = new mongoose.Schema({
 		type : Boolean,
 		default : false
 	},
-	answers : [AnswerSchema],
+	answers : [AnswerSchema.schema],
 
 	tags : [String]	
 });
