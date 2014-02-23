@@ -36,8 +36,8 @@ exports.loginAndProcess = function(req, res, next){
         console.log(curr);
         client.sendMessage({
           to: '+1' + curr.phone,
-          from: '+7245364777',
-          body: 'The following text was just recieved.\n' + text_body + '\n Please respond immediately.'
+          from: '+17245364777',
+          body: 'The following text was just recieved.\n\"' + text_body + '\"\n Please respond immediately.'
         }, function(err, response){ if(err) console.log(err);});
       });
     });
