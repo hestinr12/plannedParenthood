@@ -1,5 +1,6 @@
 var Question = require('../models/Question');
 var Answer = require('../models/Answer');
+var secret = require('../config/secrets');
 
 exports.getQuestions = function(req, res, next) {
   Question.find({}, function(err, questions) {
@@ -82,22 +83,25 @@ exports.postQuestion = function(req, res, next){
 }
 
 exports.finalize = function(req, res) {
+
+  var client = require('twilio')(secret.twilio.sid, secret.twilio.token);
   var qid = req.params.qid
     , aid = req.params.aid;
 
   Question.findById(qid, function(err, question) {
-    question.answers.id(aid, function(err, answer) {
+    var answer = question.answers.id(aid);
 
-      client.sendMessage({
-        to: '+' + question.phone,
-        from: '+7245364777',
-        body: answer.text
-      }, function(err, responseData) {
-        if (!err) {
-          res.redirect("/forum");
-        }
-      });
-
+    client.sendMessage({
+      to: '+' + question.phone,
+      from: '+17245364777',
+      body: answer.text
+    }, function(err, responseData) {
+      if (!err) {
+        res.redirect("/forum");
+      }else{
+        console.log(err);
+        res.send(400);
+      }
     });
   });
 };
