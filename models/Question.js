@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var validate = require('mongoose-validator').validate;
+var textSearch = require('mongoose-text-search');
 var Schema = mongoose.Schema;
 
 var AnswerSchema = require("./Answer");
@@ -26,5 +27,9 @@ var questionSchema = new mongoose.Schema({
 
 	tags : [String]	
 });
+
+questionSchema.plugin(textSearch);
+
+questionSchema.index({text :'text'});
 
 module.exports = mongoose.model('Question', questionSchema);
