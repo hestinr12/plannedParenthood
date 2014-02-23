@@ -37,7 +37,7 @@ var passportConf = require('./config/passport');
  * Create Express server.
  */
 
-app = express();
+var app = express();
 
 /**
  * Mongoose configuration.
@@ -140,6 +140,7 @@ app.post('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, 
 
 app.get('/questions', questionController.getQuestions);
 app.post('/question', questionController.postQuestion);
+app.get('/question/search/:query', searchController.searchQuestion);
 app.get('/question/:qid', questionController.getQuestionById);
 app.get('/question/:qid/approve', questionController.approveQuestion);
 app.get('/question/:qid/disapprove', questionController.disapproveQuestion);
@@ -186,9 +187,7 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
 /**
  * Start Express server.
  */
-var server = require('http').createServer(app);
-app.io = require('socket.io').listen(server);
-
-server.listen(app.get('port'), function() {
+app.listen(app.get('port'), function() {
   console.log("✔ Express server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });
+
