@@ -86,7 +86,7 @@ exports.finalize = function(req, res) {
     , aid = req.params.aid;
 
   Question.findById(qid, function(err, question) {
-    question.answers.findById(aid, function(err, answer) {
+    question.answers.id(aid, function(err, answer) {
 
       client.sendMessage({
         to: '+' + question.phone,
@@ -125,13 +125,10 @@ exports.upvote = function(req, res) {
   var qid = req.params.qid;
   var aid = req.params.aid;
   Question.findById(qid, function(err, question) {
-    question.answers.findById(aid, function(err, answer) {
-      console.log(err);
-      console.log(req.params.aid);
-      answer.upvotes++; 
-      answer.save(function(err,answer){
-        res.redirect("/forum");
-      });
+    var answer = question.answers.id(aid);
+    answer.upvotes = answer.upvotes+1; 
+    question.save(function(err,answer){
+      res.redirect("/forum");
     });
   });
 };
