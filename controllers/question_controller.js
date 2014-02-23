@@ -2,16 +2,16 @@ var Question = require('../models/Question');
 var Answer = require('../models/Answer');
 
 exports.getQuestions = function(req, res, next) {
-	Question.find({}, function(err, questions) {
-		res.send(questions);
-	});
+  Question.find({}, function(err, questions) {
+    res.send(questions);
+  });
 }
 
 exports.getQuestionById = function(req, res, next){
-	var id = req.param.qid;
-	Question.findById(id, function(err, question) {
-		res.send(question);
-	});
+  var id = req.params.qid;
+  Question.findById(id, function(err, question) {
+    res.send(question);
+  });
 }
 
 exports.approveQuestion = function(req, res, next){
@@ -33,10 +33,10 @@ exports.disapproveQuestion = function(req, res, next){
 }
 
 exports.getAnswersForQuestion = function(req, res, next){
-	var qid = req.param.qid;
-	Question.findById(qid, function(err, question) {
-		res.send(question.answers);
-	});
+  var qid = req.params.qid;
+  Question.findById(qid, function(err, question) {
+    res.send(question.answers);
+  });
 }
 
 exports.postAnswerForQuestion = function(req, res) {
@@ -49,42 +49,36 @@ exports.postAnswerForQuestion = function(req, res) {
     });
   });
 }
-
-exports.getAnswersForQuestionById = function(req, res, next){
-	var qid = req.param.qid;
-	var aid = req.param.aid;
-	Question.findById(id, function(err, questions) {
-		Answer.findById(id, function(err, answer){
-			res.send(answer);
-		});
-	});
-}
-
+/*
+   exports.getAnswersForQuestionById = function(req, res, next){
+   var qid = req.params.qid;
+   var aid = req.params.aid;
+   Question.findById(id, function(err, questions) {
+   Answer.findById(id, function(err, answer){
+   res.send(answer);
+   });
+   });
+   }
+   */
 exports.approveAnswer = function(req, res, next){
-	var qid = req.param.qid;
-	var aid = req.param.aid;
-	Question.findById(id, function(err, questions) {
-		Answer.findById(id, function(err, answer){
-			answer.approved = true;
-			res.send(answer);
-		});
-	});
+  var aid = req.params.aid;
+  Answer.findById(aid, function(err, answer){
+    answer.approved = true;
+    res.send(answer);
+  });
 }
 
 exports.disapproveAnswer = function(req, res, next){
-	var qid = req.param.qid;
-	var aid = req.param.aid;
-	Question.findById(id, function(err, questions) {
-		Answer.findById(id, function(err, answer){
-			answer.approved = false;
-			res.send(answer);
-		});
-	});
+  var aid = req.params.aid;
+  Answer.findById(aid, function(err, answer){
+    answer.approved = false;
+    res.send(answer);
+  });
 }
 
 exports.postQuestion = function(req, res, next){
-	var question = new Question(req.body);
-	question.save(function(err, data){res.send(200)});
+  var question = new Question(req.body);
+  question.save(function(err, data){res.send(200)});
 }
 
 exports.finalize = function(req, res) {
@@ -92,8 +86,8 @@ exports.finalize = function(req, res) {
     , aid = req.params.aid;
 
   Question.findById(qid, function(err, question) {
-    question.answer.findById(aid, function(err, answer) {
-    
+    question.answers.findById(aid, function(err, answer) {
+
       client.sendMessage({
         to: '+' + question.phone,
         from: '+7245364777',
@@ -110,19 +104,34 @@ exports.finalize = function(req, res) {
 
 exports.insertTag = function(req, res)
 {
-	Question.findById(req.params.qid, function(err, question){
-		question.tags.addToSet(req.params.tag);
-		question.save(function(err){
-			res.send(question);
-		});
-	});
-}
+  Question.findById(req.params.qid, function(err, question){
+    question.tags.addToSet(req.params.tag);
+    question.save(function(err){
+      res.send(question);
+    });
+  });
+};
 
 exports.removeTag = function(req, res){
-	Question.findById(req.params.qid, function(err, question){
-		question.tags.pull(req.params.tag);
-		question.save(function(err){
-			res.send(question);
-		});
-	});
-}
+  Question.findById(req.params.qid, function(err, question){
+    question.tags.pull(req.params.tag);
+    question.save(function(err){
+      res.send(question);
+    });
+  });
+};
+
+exports.upvote = function(req, res) {
+  var qid = req.params.qid;
+  var aid = req.params.aid;
+  Question.findById(qid, function(err, question) {
+    question.answers.findById(aid, function(err, answer) {
+      console.log(err);
+      console.log(req.params.aid);
+      answer.upvotes++; 
+      answer.save(function(err,answer){
+        res.redirect("/forum");
+      });
+    });
+  });
+};

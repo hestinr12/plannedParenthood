@@ -22,8 +22,8 @@ block content
         .row
           block q_approval 
            .col-xs-2
-              a.btn.btn-success(type="submit", formaction="/question/#{q._id}/approve") Approve
-              a.btn.btn-danger(type="submit", formaction="/question/#{q._id}/disapprove") Reject
+              a.btn.btn-success(href="/question/#{q._id}/approve") Approve
+              a.btn.btn-danger(href="/question/#{q._id}/disapprove") Reject
           .col-xs-6
             p.question= q.text
         
@@ -40,19 +40,22 @@ block content
                       .form-group
                         input.form-control(type="text",name="text",maxlength="160") 
                       button.btn.btn-default(type="submit") Answer
-
-            if q.answers.length
-              each a in q.answers
-                .row  
-                  block a_approval 
-                    .col-xs-2
-                      span 
-                        a.btn.btn-danger(href="/question/#{q._id}/answers/#{a._id}/disapprove") 
-                          | Reject
-                        a.btn.btn-success(href="/question/#{q._id}/answers/#{a._id}/finalize") 
-                          | finalize
-                  .col-xs-6
-                      p.answer= a.text
-            else
-              h4 No answers posted yet!
+            .row
+              .col-xs-12
+                if q.answers.length
+                  each a in q.answers
+                    .row  
+                      .col-xs-3
+                        span 
+                          a.btn(href="/question/#{q._id}/answer/#{a._id}/upvote")
+                            i.fa.fa-thumbs-up
+                          block a_approval 
+                            a.btn.btn-success(href="/question/#{q._id}/answer/#{a._id}/finalize") 
+                              | Finalize
+                            a.btn.btn-danger(href="/question/#{q._id}/answer/#{a._id}/disapprove") 
+                              | Reject
+                      .col-xs-6
+                          p.answer= a.text
+                else
+                  h4 No answers posted yet!
 

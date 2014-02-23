@@ -17,7 +17,12 @@ var AnswerSchema = new mongoose.Schema({
 	time_posted : {
 		type : Date,
     default : Date.now
-	}
+	},
+  upvotes : {
+    type: Number,
+    required: true,
+    default: 0
+  }
 })
 
 module.exports = mongoose.model('Answer', AnswerSchema);
