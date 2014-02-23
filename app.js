@@ -145,12 +145,18 @@ app.get('/question/:qid', questionController.getQuestionById);
 app.get('/question/:qid/approve', questionController.approveQuestion);
 app.get('/question/:qid/disapprove', questionController.disapproveQuestion);
 
+// Insert Tag
+app.get('/question/:qid/addtag/:tag', questionController.insertTag);
+// Remove Tag
+app.get('/question/:qid/rmtag/:tag', questionController.removeTag);
+
 app.get('/question/:qid/answers', questionController.getAnswersForQuestion);
 app.post('/question/:qid/answers', passportConf.isAuthenticated, questionController.postAnswerForQuestion);
 //app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionById);
 app.get('/question/:qid/answer/:aid/approve', questionController.approveAnswer);
 app.get('/question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
 
+// TODO: notify admin if bad words
 process.env.TWILIO_AUTH_TOKEN = secrets.twilio.token;
 app.post('/rxsms', twilio.webhook(), twilioController.loginAndProcess);
 
