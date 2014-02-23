@@ -24,7 +24,6 @@ var questionSchema = new mongoose.Schema({
 		default : false
 	},
 	answers : [AnswerSchema.schema],
-
 	tags : [String]	
 });
 

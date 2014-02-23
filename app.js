@@ -154,7 +154,7 @@ app.get('/question/:qid/rmtag/:tag', questionController.removeTag);
 app.get('/question/:qid/answers', questionController.getAnswersForQuestion);
 app.post('/question/:qid/answers', passportConf.isAuthenticated, questionController.postAnswerForQuestion);
 //app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionById);
-app.get('/question/:qid/answer/:aid/approve', questionController.approveAnswer);
+app.get('/question/:qid/answer/:aid/upvote', questionController.upvote);
 app.get('/question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
 
 app.get('/question/:qid/answer/:aid/finalize', questionController.finalize);
