@@ -85,6 +85,27 @@ exports.postQuestion = function(req, res, next){
 	question.save(function(err, data){res.send(200)});
 }
 
+exports.finalize = function(req, res) {
+  var qid = req.params.qid
+    , aid = req.params.aid;
+
+  Question.findById(qid, function(err, question) {
+    question.answer.findById(aid, function(err, answer) {
+    
+      client.sendMessage({
+        to: '+' + question.phone,
+        from: '+7245364777',
+        body: answer.text
+      }, function(err, responseData) {
+        if (!err) {
+          res.redirect("/forum");
+        }
+      });
+
+    });
+  });
+};
+
 exports.insertTag = function(req, res)
 {
 	Question.findById(req.params.qid, function(err, question){

@@ -141,7 +141,7 @@ app.post('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, 
 
 app.get('/questions', questionController.getQuestions);
 app.post('/question', questionController.postQuestion);
-app.get('/question/search/:query', searchController.searchQuestion);
+app.get('/question/search', searchController.searchQuestion);
 app.get('/question/:qid', questionController.getQuestionById);
 app.get('/question/:qid/approve', questionController.approveQuestion);
 app.get('/question/:qid/disapprove', questionController.disapproveQuestion);
@@ -156,6 +156,8 @@ app.post('/question/:qid/answers', passportConf.isAuthenticated, questionControl
 //app.post('question/:qid/answers/:aid', questionController.getAnswersForQuestionById);
 app.get('/question/:qid/answer/:aid/approve', questionController.approveAnswer);
 app.get('/question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
+
+app.get('/question/:qid/answer/:aid/finalize', questionController.finalize);
 
 // TODO: notify admin if bad words
 process.env.TWILIO_AUTH_TOKEN = secrets.twilio.token;
