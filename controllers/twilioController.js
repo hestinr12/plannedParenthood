@@ -2,7 +2,6 @@ var twilio = require('twilio');
 var Question = require('../models/Question');
 var secret = require("../config/secrets");
 var User = require("../models/User");
-
 // { ToCountry: 'US',
 //   ToState: 'PA',
 //   SmsMessageSid: 'SMebf139b3a4be750585fb558337cc12f8',
@@ -41,4 +40,5 @@ var User = require("../models/User");
       // Post new question
       var question = new Question({author: user._id, text: req.body.Body});
       question.save();
+      socket.broadcast.emit('new question');
   };

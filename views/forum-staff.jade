@@ -55,3 +55,8 @@ block content
                       p.answer= a.text
             else
               h4 No answers posted yet!
+
+
+script.
+  var socket = io.connect();
+  socket.on('new question, function(data){ location.reload();});
