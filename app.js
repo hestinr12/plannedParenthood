@@ -140,7 +140,7 @@ app.post('/api/venmo', passportConf.isAuthenticated, passportConf.isAuthorized, 
 
 app.get('/questions', questionController.getQuestions);
 app.post('/question', questionController.postQuestion);
-app.get('/question/search/:query', searchController.searchQuestion);
+app.get('/question/search', searchController.searchQuestion);
 app.get('/question/:qid', questionController.getQuestionById);
 app.get('/question/:qid/approve', questionController.approveQuestion);
 app.get('/question/:qid/disapprove', questionController.disapproveQuestion);
