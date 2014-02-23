@@ -1,5 +1,5 @@
 module.exports = {
-  db: 'mongodb://test:test@ds027799.mongolab.com:27799/plannedparenthood',
+  db: 'mongodb://test:test@ds063218.mongolab.com:63218/plannedparenthood1',
 
   localAuth: true,
   sessionSecret: "Your Session Secret goes here",

@@ -15,19 +15,21 @@ exports.getQuestionById = function(req, res, next){
 }
 
 exports.approveQuestion = function(req, res, next){
-  var id = req.params.qid;
-  Question.findById(id, function(err, question) {
-    question.approved = true;
-    res.send(question);
-  });
+	var id = req.param.qid;
+	Question.findById(id, function(err, question) {
+		question.approved = true;
+    question.save();
+		res.send(question);
+	});
 }
 
 exports.disapproveQuestion = function(req, res, next){
-  var id = req.params.qid;
-  Question.findById(id, function(err, question) {
-    question.approved = false;
-    res.send(question);
-  });
+	var id = req.param.qid;
+	Question.findById(id, function(err, question) {
+		question.approved = false;
+    question.save();
+		res.send(question);
+	});
 }
 
 exports.getAnswersForQuestion = function(req, res, next){

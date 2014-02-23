@@ -10,7 +10,7 @@ var questionSchema = new mongoose.Schema({
 		type : String,
 		required : true,
 		validate : validate('len', 0, 160)
-	},
+  },
 	phone : {
 		type: Number,
 		required: true
