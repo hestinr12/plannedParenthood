@@ -105,3 +105,22 @@ exports.finalize = function(req, res) {
     });
   });
 };
+
+exports.insertTag = function(req, res)
+{
+	Question.findById(req.params.qid, function(err, question){
+		question.tags.addToSet(req.params.tag);
+		question.save(function(err){
+			res.send(question);
+		});
+	});
+}
+
+exports.removeTag = function(req, res){
+	Question.findById(req.params.qid, function(err, question){
+		question.tags.pull(req.params.tag);
+		question.save(function(err){
+			res.send(question);
+		});
+	});
+}
