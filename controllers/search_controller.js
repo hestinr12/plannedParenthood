@@ -2,9 +2,9 @@ var Question = require('../models/Question');
 
 exports.searchQuestion = function(req, res, next) { 
   var query = req.query.query;
-  console.log(query);
   Question.textSearch(query, function(err, question) {
-    console.log(question);
-    res.send(question);
+    results = question.results.map ( function(curr, index, thisArg) {
+      return curr.obj;}), 
+    res.send(results);
   });
 }
