@@ -156,6 +156,8 @@ app.post('/question/:qid/answers', passportConf.isAuthenticated, questionControl
 app.get('/question/:qid/answer/:aid/approve', questionController.approveAnswer);
 app.get('/question/:qid/answer/:aid/disapprove', questionController.disapproveAnswer);
 
+app.get('/question/:qid/answer/:aid/finalize', questionController.finalize);
+
 // TODO: notify admin if bad words
 process.env.TWILIO_AUTH_TOKEN = secrets.twilio.token;
 app.post('/rxsms', twilio.webhook(), twilioController.loginAndProcess);
